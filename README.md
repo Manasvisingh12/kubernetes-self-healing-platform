@@ -116,14 +116,14 @@ kubectl get hpa -w
 ## ▌Screenshots
 
 ### Running Pods
-![Running Pods](screenshots/Screenshot 2026-03-17 at 7.34.39 PM.png)
+![Running Pods](screenshots/pod.png)
 
 ### HPA Scaling
-![HPA Scaling](screenshots/Screenshot 2026-03-17 at 7.36.26 PM.png)
+![HPA Scaling](screenshots/hpa.png)
 
 ### Self-Healing Demonstration
-![Self Healing](screenshots/Screenshot 2026-03-17 at 7.36.54 PM.png)
-![Self Healing](screenshots/Screenshot 2026-03-17 at 7.37.21 PM.png)
+![Self Healing](screenshots/1.png)
+![Self Healing](screenshots/2.png)
 
 ▌Core Concepts Demonstrated
 
