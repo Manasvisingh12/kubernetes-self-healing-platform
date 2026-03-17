@@ -1,108 +1,80 @@
-# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-#          KUBERNETES SELF-HEALING PLATFORM
-# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<p align="center"> <h1>☸️ Kubernetes Self-Healing Platform</h1> </p> <p align="center"> <img src="https://img.shields.io/badge/Kubernetes-Self_Healing-blue?style=for-the-badge&logo=kubernetes" /> <img src="https://img.shields.io/badge/Docker-Containerization-blue?style=for-the-badge&logo=docker" /> <img src="https://img.shields.io/badge/Minikube-Local_Cluster-green?style=for-the-badge&logo=minikube" /> <img src="https://img.shields.io/badge/NGINX-Ingress-orange?style=for-the-badge&logo=nginx" /> <img src="https://img.shields.io/badge/HPA-Scaling-yellow?style=for-the-badge" /> </p>
+<h1> Architecture</h1>
+<p align="center"> <img src="https://github.com/user-attachments/assets/86fd8d12-4735-48c0-b87d-75e54c43ca92" width="80%"> </p>
 
-## ▌Overview
+<h1> Request Flow </h1>
 
-This project demonstrates a production-style deployment of an application on Kubernetes with **self-healing** and **auto-scaling capabilities**.
+      Step-by-step flow of a user request through the Kubernetes cluster:
 
-It highlights how Kubernetes ensures system reliability by automatically:
-- Recovering failed pods
-- Maintaining desired state
-- Scaling applications dynamically based on load
+User Request – External user sends a request to the application.
 
+Ingress (NGINX) – Routes the external request to the cluster.
 
----
+Service (ClusterIP) – Distributes the traffic evenly across pods.
 
-## ▌Architecture
-<img width="1408" height="768" alt="image" src="https://github.com/user-attachments/assets/86fd8d12-4735-48c0-b87d-75e54c43ca92" />
+Deployment – Ensures the desired number of replicas are running.
 
-      User Request
-           │
-           ▼
-    Ingress (NGINX)
-           │
-           ▼
-    Service (ClusterIP)
-           │
-           ▼
-      Deployment
-           │
-           ▼
-    Pods (Replicated)
+Pods (Replicated) – Each pod handles the request; automatically recreated if a failure occurs.
 
-**Flow Explanation:**
-- Ingress routes external traffic into the cluster  
-- Service distributes traffic across pods  
-- Deployment maintains desired number of replicas  
-- Pods are automatically recreated on failure  
+<h2> Tech Stack</h2>
 
----
+Layer	Technology & Badge
+Containerization	Docker
 
-## ▌Tech Stack
+Orchestration	Kubernetes
 
-| Layer            | Technology Used        |
-|------------------|----------------------|
-| Containerization | Docker               |
-| Orchestration    | Kubernetes (Minikube)|
-| Networking       | NGINX Ingress        |
-| Scaling          | HPA (Horizontal Pod Autoscaler) |
+Networking	NGINX Ingress
 
----
+Scaling	Horizontal Pod Autoscaler (HPA)
 
-## ▌Key Features
+<h1> Key Features</h1>
 
-- Self-Healing: Automatic pod recovery on failure  
-- Auto Scaling: Dynamic scaling using CPU utilization  
-- Load Balancing: Traffic distribution via Kubernetes Services  
-- External Access: Ingress-based routing  
-- Fault Simulation: Manual pod deletion to test recovery  
+Self-Healing: Automatic pod recovery
 
----
+Auto Scaling: CPU-based dynamic scaling
 
-## ▌Project Structure
+Load Balancing: Even traffic distribution
 
+External Access: Ingress routing
 
+Fault Simulation: Manual pod deletion to test recovery
+
+<p align="center"> <img src="https://img.shields.io/badge/Deployment-Successful-brightgreen?style=for-the-badge" /> <img src="https://img.shields.io/badge/HPA-Active-yellow?style=for-the-badge" /> <img src="https://img.shields.io/badge/CI-CD-Integrated-blue?style=for-the-badge" /> </p>
+<h1>Project Structure</h1> 
 kubernetes-self-healing/
 │
-├── k8s/ # Kubernetes YAML configurations
-├── screenshots/ # Proof of working system
+├── k8s/             # Kubernetes YAML configurations
+├── screenshots/     # Proof of working system
 ├── docs/
-│ └── architecture.png
-├── README.md
-
-
----
-
-## ▌Setup Instructions
-
-### 1. Start Kubernetes Cluster
-```bash
+│   └── architecture.png
+└── README.md
+<h1>Setup Instructions</h1> 
+1️⃣ Start Minikube
 minikube start
-2. Enable Ingress
+
+2️⃣ Enable Ingress
 minikube addons enable ingress
-3. Deploy Resources
+
+3️⃣ Deploy Kubernetes Resources
 kubectl apply -f k8s/
-▌Application Access
+
+4️⃣ Access Application
 minikube ip
 
 Add to /etc/hosts:
 
 <MINIKUBE-IP> myapp.local
 
-Access the application:
+Visit: http://myapp.local
 
-http://myapp.local
-▌Demonstration
-Self-Healing
+<h1>Demonstration</h1>
+
+Self-Healing Pods
+
 kubectl delete pod <pod-name>
 kubectl get pods
 
-Kubernetes automatically recreates the deleted pod.
-
 Auto Scaling
-
-Start load generator:
 
 kubectl run -i --tty load-generator --image=busybox /bin/sh
 
@@ -113,19 +85,20 @@ while true; do wget -q -O- http://myapp.local; done
 Monitor scaling:
 
 kubectl get hpa -w
-## ▌Screenshots
+<h1>Screenshots</h1> 
 
-### Running Pods
-![Running Pods](screenshots/pod.png)
+Running Pods
 
-### HPA Scaling
-![HPA Scaling](screenshots/hpa.png)
+<p align="center"> <img src="screenshots/pod.png" width="70%"> </p>
 
-### Self-Healing Demonstration
-![Self Healing](screenshots/1.png)
-![Self Healing](screenshots/2.png)
+HPA Scaling
 
-▌Core Concepts Demonstrated
+<p align="center"> <img src="screenshots/hpa.png" width="70%"> </p>
+
+Self-Healing Demo
+
+<p align="center"> <img src="screenshots/1.png" width="45%"> <img src="screenshots/2.png" width="45%"> </p>
+<h1>Core Concepts</h1>
 
 Declarative Infrastructure
 
@@ -135,30 +108,32 @@ Pod Lifecycle Handling
 
 Horizontal Scaling
 
-Fault Tolerance in Distributed Systems
+Fault Tolerance
 
-▌Why This Project Matters
+<h1>Why This Project Matters</h1>
 
-This project reflects real-world DevOps capabilities:
+Demonstrates deep understanding of Kubernetes architecture
 
-Strong understanding of Kubernetes architecture
+Builds resilient, fault-tolerant systems
 
-Ability to design resilient systems
+Hands-on debugging & failure simulation
 
-Hands-on debugging and failure simulation
+Shows production-ready DevOps skills
 
-Production-oriented thinking
+<h1>Future Enhancements</h1>
 
-▌Future Enhancements
+Monitoring with Prometheus & Grafana
 
-Add monitoring with Prometheus & Grafana
+CI/CD pipeline integration
 
-Implement CI/CD pipeline integration
+Cloud deployment (AWS / GCP)
 
-Deploy on cloud (AWS / GCP)
+Centralized logging with ELK Stack
 
-Add logging with ELK stack
+<p align="center"> *Professional, portfolio-ready Kubernetes project demonstrating self-healing, auto-scaling, and DevOps best practices.* </p>
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-End of Documentation
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Cloud deployment (AWS / GCP)
+
+Centralized logging with ELK Stack
+
+<p align="center"> *Professional, portfolio-ready Kubernetes project demonstrating self-healing, auto-scaling, and DevOps best practices.* </p>
